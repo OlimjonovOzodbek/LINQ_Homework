@@ -20,6 +20,12 @@ namespace ConsoleApp1
                 },
                 new Worker()
                 {
+                    id = 5,
+                    name = "Ibrohim",
+                    language_id = 3,
+                },
+                new Worker()
+                {
                     id = 2,
                     name = "Sardor",
                     language_id = 1,
@@ -77,10 +83,21 @@ namespace ConsoleApp1
         public static void WorkerList()
         {
             var joindata = GetWorker().Join(LanguageList(), wrk => wrk.language_id,
-                ln => ln.id,(WorkerList,LanguageList) => new {WorkerList.name,LanguageList.LanguageName});
+                ln => ln.id,( WorkerList,LanguageList) => new { WorkerList.name,LanguageList.LanguageName,WorkerList.id});
             foreach(var worker in joindata)
             {
-                Console.WriteLine(worker.name +" -> "+ worker.LanguageName);
+                Console.WriteLine(worker.id+")"+ worker.name +" -> "+ worker.LanguageName);
+            }
+        }
+
+        public static void WorkerListByLanguageName()
+        {
+            var joindata = GetWorker().Where(wrk => wrk.language_id == 1);
+            {
+                foreach(var worker in joindata)
+                {
+                    Console.WriteLine(worker.id + ")" + worker.name);
+                }
             }
         }
     }
